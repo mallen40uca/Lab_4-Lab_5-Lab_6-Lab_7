@@ -2,14 +2,49 @@
 #include <string>
 #include <iomanip>
 #include <limits> 
+#include <fstream> 
 
 using namespace std;
 
 int main() {
+// read menu items and prices from text 
+    string drink1, drink2, drink3, drink4;
+    double drink1Sm, drink1Med, drink1Lg;
+    double drink2Sm, drink2Med, drink2Lg;
+    double drink3Sm, drink3Med, drink3Lg;
+    double drink4Sm, drink4Med, drink4Lg;
+
+    ifstream menuFile("menu.txt");
+    if (!menuFile.is_open()) {
+        cout << "Could not open menu" << endl;
+        return 1;
+    }
+
+    // drink 1
+    getline(menuFile, drink1);
+    menuFile >> drink1Sm >> drink1Med >> drink1Lg;
+    menuFile.ignore();
+
+    // drink 2
+    getline(menuFile, drink2);
+    menuFile >> drink2Sm >> drink2Med >> drink2Lg;
+    menuFile.ignore();
+
+    // drink 3
+    getline(menuFile, drink3);
+    menuFile >> drink3Sm >> drink3Med >> drink3Lg;
+    menuFile.ignore();
+
+    // drink 4
+    getline(menuFile, drink4);
+    menuFile >> drink4Sm >> drink4Med >> drink4Lg;
+    menuFile.ignore();
+
+    menuFile.close();
+
     const int originalInventoryCount = 50;
     const double originalCashAmount = 200.0;
 
-    // name
     string customerName;
     cout << "Enter Customer Name: ";
     getline(cin, customerName);
@@ -25,13 +60,14 @@ int main() {
     char sizeChoice;
 
     while (true) {
- 
-        cout << "\nDrink              Small (S)   Medium (M)   Large (L)" << endl;
+
+        cout << fixed << setprecision(2);
+        cout << "\nDrink             Small (S)   Medium (M)   Large (L)" << endl;
         cout << "------------------------------------------------------" << endl;
-        cout << "A. Apple Juice     $2.50       $3.50        $4.50" << endl;
-        cout << "B. Beer            $5.00       $7.00        $9.00" << endl;
-        cout << "C. Coffee          $2.00       $2.75        $3.25" << endl;
-        cout << "D. Lemonade        $2.25       $3.00        $3.75" << endl;
+        cout << "A. " << left << setw(15) << drink1 << "$" << drink1Sm << "       $" << drink1Med << "        $" << drink1Lg << endl;
+        cout << "B. " << left << setw(15) << drink2 << "$" << drink2Sm << "       $" << drink2Med << "        $" << drink2Lg << endl;
+        cout << "C. " << left << setw(15) << drink3 << "$" << drink3Sm << "       $" << drink3Med << "        $" << drink3Lg << endl;
+        cout << "D. " << left << setw(15) << drink4 << "$" << drink4Sm << "       $" << drink4Med << "        $" << drink4Lg << endl;
         cout << "E. Checkout" << endl;
         cout << "------------------------------------------------------" << endl;
 
@@ -66,63 +102,63 @@ int main() {
         }
 
         if (itemChoice == 'A' || itemChoice == 'a') {
-            foodName = "Apple Juice";
+            foodName = drink1;
             if (sizeChoice == 's' || sizeChoice == 'S') {
                 sizeLabel = "Small";
-                unitPrice = 2.50;
+                unitPrice = drink1Sm;
             }
             else if (sizeChoice == 'm' || sizeChoice == 'M') {
                 sizeLabel = "Medium";
-                unitPrice = 3.50;
+                unitPrice = drink1Med;
             }
             else if (sizeChoice == 'l' || sizeChoice == 'L') {
                 sizeLabel = "Large";
-                unitPrice = 4.50;
+                unitPrice = drink1Lg;
             }
         }
         else if (itemChoice == 'B' || itemChoice == 'b') {
-            foodName = "Beer";
+            foodName = drink2;
             if (sizeChoice == 's' || sizeChoice == 'S') {
                 sizeLabel = "Small";
-                unitPrice = 5.00;
+                unitPrice = drink2Sm;
             }
             else if (sizeChoice == 'm' || sizeChoice == 'M') {
                 sizeLabel = "Medium";
-                unitPrice = 7.00;
+                unitPrice = drink2Med;
             }
             else if (sizeChoice == 'l' || sizeChoice == 'L') {
                 sizeLabel = "Large";
-                unitPrice = 9.00;
+                unitPrice = drink2Lg;
             }
         }
         else if (itemChoice == 'C' || itemChoice == 'c') {
-            foodName = "Coffee";
+            foodName = drink3;
             if (sizeChoice == 's' || sizeChoice == 'S') {
                 sizeLabel = "Small";
-                unitPrice = 2.00;
+                unitPrice = drink3Sm;
             }
             else if (sizeChoice == 'm' || sizeChoice == 'M') {
                 sizeLabel = "Medium";
-                unitPrice = 2.75;
+                unitPrice = drink3Med;
             }
             else if (sizeChoice == 'l' || sizeChoice == 'L') {
                 sizeLabel = "Large";
-                unitPrice = 3.25;
+                unitPrice = drink3Lg;
             }
         }
         else if (itemChoice == 'D' || itemChoice == 'd') {
-            foodName = "Lemonade";
+            foodName = drink4;
             if (sizeChoice == 's' || sizeChoice == 'S') {
                 sizeLabel = "Small";
-                unitPrice = 2.25;
+                unitPrice = drink4Sm;
             }
             else if (sizeChoice == 'm' || sizeChoice == 'M') {
                 sizeLabel = "Medium";
-                unitPrice = 3.00;
+                unitPrice = drink4Med;
             }
             else if (sizeChoice == 'l' || sizeChoice == 'L') {
                 sizeLabel = "Large";
-                unitPrice = 3.75;
+                unitPrice = drink4Lg;
             }
         }
 
@@ -193,7 +229,7 @@ int main() {
     double tip20 = subtotal * 0.20;
     double tip25 = subtotal * 0.25;
 
-    cout << "\nTip Selection          Amount" << endl;
+    cout << "\nTip Selection         Amount" << endl;
     cout << "=============================" << endl;
     cout << "A. 15%                 $" << tip15 << endl;
     cout << "B. 20%                 $" << tip20 << endl;
